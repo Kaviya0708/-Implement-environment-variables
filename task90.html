@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Environment Variables Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+        }
+
+        #result {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Environment Variables Demo</h2>
+
+    <button onclick="loadConfig()">
+        Load Configuration
+    </button>
+
+    <div id="result">
+        Click the button to fetch environment data.
+    </div>
+
+    <script>
+        async function loadConfig() {
+
+            try {
+
+                const response = await fetch(
+                    "http://localhost:3000/config"
+                );
+
+                const data = await response.json();
+
+                document.getElementById(
+                    "result"
+                ).innerHTML = `
+                    <p><b>Application:</b> ${data.appName}</p>
+                    <p><b>Port:</b> ${data.port}</p>
+                `;
+
+            } catch (error) {
+
+                document.getElementById(
+                    "result"
+                ).innerHTML =
+                    "Error loading configuration.";
+            }
+        }
+    </script>
+
+</body>
+</html>
